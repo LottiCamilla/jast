@@ -2,6 +2,7 @@ package com.example.jast.s11;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class Collecting {
@@ -11,7 +12,9 @@ public class Collecting {
         System.out.println("---");
 
         System.out.print("Filter positive values, collect by toList(): ");
-        System.out.println(values.stream().filter(x -> x > 0).collect(Collectors.toList()));
+//        System.out.println(values.stream().filter(x -> x > 0).collect(Collectors.toList()));
+        List<Integer> result = values.stream().filter(x -> x > 0).collect(Collectors.toList());
+        System.out.println(result);
 
         System.out.print("Filter positive values, collect by counting(): ");
         System.out.println(values.stream().filter(x -> x > 0).collect(Collectors.counting()));
@@ -26,7 +29,9 @@ public class Collecting {
         values.stream().max(Comparator.naturalOrder()).ifPresent(System.out::println);
 
         System.out.print("Collect in natural order with minBy(): ");
-        values.stream().collect(Collectors.minBy(Comparator.naturalOrder())).ifPresent(System.out::println);
+//        values.stream().collect(Collectors.minBy(Comparator.naturalOrder())).ifPresent(System.out::println);
+        Optional<Integer> r = values.stream().collect(Collectors.minBy(Comparator.naturalOrder()));
+        r.ifPresentOrElse(System.out::println, () -> System.out.println("No max!"));
 
         System.out.print("Same, using Stream::min(): ");
         values.stream().min(Comparator.naturalOrder()).ifPresent(System.out::println);
